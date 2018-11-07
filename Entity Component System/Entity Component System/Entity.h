@@ -1,25 +1,36 @@
 #pragma once
+#include <iostream>
 #include <vector>
-#include "Component.h"
+#include <SDL.h>
+#include "AIComponent.h"
+#include "ControlComponent.h"
+#include "GraphicComponent.h"
+#include "HealthComponent.h"
+#include "PositionComponent.h"
 
 class Entity
 {
-	int id;
 public:
-	Entity();
-	void addComponent(Component c) {
-		components.push_back(c);
+	Entity() {}
+	void addComponent(Component * newComp) {
+		m_components.push_back(newComp);
 	}
-	void removeComponent(Component c) {
-		// TBI
+
+	void removeComponent(Component * removeComp) {
+
 	}
-	std::vector<Component> getComponents() {
-		return components;
+
+	std::vector<Component*> getComponents() {
+		return m_components;
+	}
+
+	Component * getCompByType(COMPONENTTYPE type) {
+		for (Component * comp : m_components) {
+			if (comp->getType() == type) {
+				return comp;
+			}
+		}
 	}
 private:
-	std::vector<Component> components;
+	std::vector<Component*> m_components;
 };
-
-Entity::Entity()
-{
-}
