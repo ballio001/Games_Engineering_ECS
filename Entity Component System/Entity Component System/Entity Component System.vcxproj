@@ -162,7 +162,7 @@
     <ClInclude Include="HealthSystem.h" />
     <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="PositionSystem.h" />
-    <ClInclude Include="GraphicComponent.h" />
+    <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />

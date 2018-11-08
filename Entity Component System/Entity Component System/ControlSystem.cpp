@@ -20,8 +20,6 @@ void ControlSystem::update(SDL_Event & e) {
 			int x = 0;
 			int y = 0;
 
-
-
 			switch (e.type)
 			{
 			case SDL_KEYDOWN:
@@ -46,10 +44,8 @@ void ControlSystem::update(SDL_Event & e) {
 				}
 			}
 
-
 			for (Entity * entity : m_entities) {
 
-				//Move AI
 				std::vector<Component*> comps = entity->getComponents();
 				for (Component * comp : comps) {
 
@@ -62,11 +58,7 @@ void ControlSystem::update(SDL_Event & e) {
 						cout << "Changing position of player " << " from (" << initX << ", " << initY
 							<< ") to (" << psComp->getX() << ", " << psComp->getY() << ")" << endl;
 					}
-
-
 				}
-
-
 			}
 		}
 		else {

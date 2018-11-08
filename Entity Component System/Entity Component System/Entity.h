@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include "AIComponent.h"
 #include "ControlComponent.h"
-#include "GraphicComponent.h"
+#include "RenderComponent.h"
 #include "HealthComponent.h"
 #include "PositionComponent.h"
 

@@ -4,10 +4,10 @@
 
 using namespace std;
 
-class GraphicComponent : public Component
+class RenderComponent : public Component
 {
 public:
-	GraphicComponent(string path, int w, int h) : m_path(path), m_w(w), m_h(h) {}
+	RenderComponent(string path, int w, int h) : m_path(path), m_w(w), m_h(h) {}
 
 	string getTexturePath() { return m_path; }
 	void setHealth(std::string path) { this->m_path = path; }
