@@ -1,12 +1,11 @@
 #pragma once
 #include "Entity.h"
 #include "System.h"
-
-class AISystem : public System
+class ControllerSystem : public System
 {
 public:
-	AISystem();
-	~AISystem();
+	ControllerSystem();
+	~ControllerSystem();
 	void Update();
 private:
 };

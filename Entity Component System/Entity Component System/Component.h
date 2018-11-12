@@ -1,19 +1,18 @@
 #pragma once
 
-enum COMPONENTTYPE
-{
-	RENDER,
-	HEALTH,
-	POSITION,
-	AI,
-	CONTROL
-};
-
 class Component
 {
+
 public:
-	Component() {};
+	enum Type
+	{
+		Health = 0,
+		Position = 1,
+		Controller = 2,
+	};
+	virtual Type GetType() = 0;
+	virtual  int GetIndex() = 0;
 
-	virtual COMPONENTTYPE getType() { return COMPONENTTYPE::AI; }
+private:
+
 };
-

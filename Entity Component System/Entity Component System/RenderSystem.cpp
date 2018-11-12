@@ -1,38 +1,56 @@
-#include "stdafx.h"
 #include "RenderSystem.h"
+#include "PositionComponent.h"
+#include "RenderSystem.h"
+#include "SDL.h"
+#include <iostream>
 
-RenderSystem::RenderSystem() {
 
+
+RenderSystem::RenderSystem(SDL_Renderer* r) : rRenderer(r)
+{
+	SDL_Surface* surface;
+
+	surface = IMG_Load("player.png");
+	player = SDL_CreateTextureFromSurface(r, surface);
+
+	surface = IMG_Load("alien.png");
+	alien = SDL_CreateTextureFromSurface(r, surface);
+
+	surface = IMG_Load("dog.png");
+	dog = SDL_CreateTextureFromSurface(r, surface);
+
+	surface = IMG_Load("cat.png");
+	cat = SDL_CreateTextureFromSurface(r, surface);
 }
 
-void RenderSystem::addEntity(Entity * e) {
-	m_entities.push_back(e);
+
+RenderSystem::~RenderSystem()
+{
 }
 
-void RenderSystem::update() {
-	int index = 0;
-
-	cout << "RENDER SYSTEM:" << endl;
-	for (Entity * entity : m_entities) {
-
-		//Render texture to screen
-		std::vector<Component*> comps = entity->getComponents();
-		for (Component * comp : comps) {
-			if (comp->getType() == COMPONENTTYPE::POSITION) {
-				cout << "Checking position component of entity " << index << endl;
-			}
-
-			if (comp->getType() == COMPONENTTYPE::RENDER) {
-				cout << "Cheking render component of entity " << index << endl;
-			}
+void RenderSystem::Update() {
 
 
-		}
-		cout << "Drawing entity " << index << endl;
+	SDL_RenderClear(rRenderer);
 
-		index++;
-	}
-	cout << endl;
-	cout << endl;
+	SDL_Rect* texPos = new SDL_Rect();
+	texPos->h = 64;
+	texPos->w = 64;
+	texPos->x = entities[0].getComponent<PositionComponent>(Component::Type::Position)->GetXPosition();
+	texPos->y = entities[0].getComponent<PositionComponent>(Component::Type::Position)->GetYPosition();
+	SDL_RenderCopy(rRenderer, player, NULL, texPos);
 
+	texPos->x = entities[1].getComponent<PositionComponent>(Component::Type::Position)->GetXPosition();
+	texPos->y = entities[1].getComponent<PositionComponent>(Component::Type::Position)->GetYPosition();
+	SDL_RenderCopy(rRenderer, alien, NULL, texPos);
+
+	texPos->x = entities[2].getComponent<PositionComponent>(Component::Type::Position)->GetXPosition();
+	texPos->y = entities[2].getComponent<PositionComponent>(Component::Type::Position)->GetYPosition();
+	SDL_RenderCopy(rRenderer, dog, NULL, texPos);
+
+	texPos->x = entities[3].getComponent<PositionComponent>(Component::Type::Position)->GetXPosition();
+	texPos->y = entities[3].getComponent<PositionComponent>(Component::Type::Position)->GetYPosition();
+	SDL_RenderCopy(rRenderer, cat, NULL, texPos);
+
+	SDL_RenderPresent(rRenderer);
 }

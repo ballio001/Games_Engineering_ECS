@@ -1,50 +1,33 @@
-#include "stdafx.h"
 #include "AISystem.h"
+#include "PositionComponent.h"
+#include "HealthComponent.h"
 
-using namespace std;
+float alienSpeedX = 0.8, alienSpeedY = 0.8;
+float dogSpeed = 1.5, catSpeed = 1;
 
-AISystem::AISystem() {
-
+AISystem::AISystem()
+{
 }
 
-void AISystem::addEntity(Entity * e) {
-	m_entities.push_back(e);
+
+AISystem::~AISystem()
+{
 }
 
-void AISystem::update() {
-	int index = 0;
-	int speed = 0;
-	int x = 0;
-	int y = 0;
-
-	cout << "AI SYSTEM:" << endl;
-	for (Entity * entity : m_entities) {
-
-		//Move AI
-		std::vector<Component*> comps = entity->getComponents();
-		for (Component * comp : comps) {
-			if (comp->getType() == COMPONENTTYPE::AI) {
-				AIComponent * aiComp = dynamic_cast<AIComponent *>(comp);
-				speed = aiComp->getSpeed();
-				cout << "Getting the speed of entity " << index << endl;
-			}
+void AISystem::Update() {
+	PositionComponent* alienPosition = entities[0].getComponent<PositionComponent>(Component::Type::Position);
+	PositionComponent* dogPosition = entities[1].getComponent<PositionComponent>(Component::Type::Position);
+	PositionComponent* catPosition = entities[2].getComponent<PositionComponent>(Component::Type::Position);
 
 
-			if (comp->getType() == COMPONENTTYPE::POSITION) {
-				PositionComponent * psComp = dynamic_cast<PositionComponent *>(comp);
-				x = psComp->getX();
-				y = psComp->getY();
-				psComp->setX(psComp->getX() + speed);
-				psComp->setY(psComp->getY() + speed);
-				cout << "Changing position of entity " << index << " from (" << x << ", " << y
-					<< ") to (" << psComp->getX() << ", " << psComp->getY() << ")" << endl;
-			}
 
-		}
+	alienPosition->Translate(alienSpeedX, alienSpeedY);
+	if (alienPosition->GetYPosition() > 450 || alienPosition->GetYPosition() < 0) { alienSpeedY *= -1; }
+	if (alienPosition->GetXPosition() > 450 || alienPosition->GetXPosition() < 0) { alienSpeedX *= -1; }
 
-		index++;
-	}
-	cout << endl;
-	cout << endl;
+	dogPosition->Translate(dogSpeed, 0);
+	if (dogPosition->GetXPosition() > 450 || dogPosition->GetXPosition() < 0) { dogSpeed = -dogSpeed; }
 
+	catPosition->Translate(0, catSpeed);
+	if (catPosition->GetYPosition() > 450 || catPosition->GetYPosition() < 0) { catSpeed = -catSpeed; }
 }

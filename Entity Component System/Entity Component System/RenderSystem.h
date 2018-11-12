@@ -1,21 +1,20 @@
 #pragma once
-#include <iostream>
-#include <vector>
+#include "System.h"
 #include "Entity.h"
-#include <SDL_image.h>
-#include <string>
+#include "SDL.h"
+#include "SDL_Image.h"
+#include <vector>
 
-using namespace std;
-
-class RenderSystem
+class RenderSystem : public System
 {
-	std::vector<Entity *> m_entities;
-
 public:
-	RenderSystem();
-	void addEntity(Entity * e);
-	void update();
-
+	RenderSystem(SDL_Renderer* r);
+	~RenderSystem();
+	void Update();
 private:
-
+	SDL_Renderer * rRenderer;
+	SDL_Texture* player;
+	SDL_Texture* alien;
+	SDL_Texture * dog;
+	SDL_Texture* cat;
 };

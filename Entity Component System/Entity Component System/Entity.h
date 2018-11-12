@@ -1,36 +1,34 @@
 #pragma once
-#include <iostream>
+#include "Component.h"
 #include <vector>
-#include <SDL.h>
-#include "AIComponent.h"
-#include "ControlComponent.h"
-#include "RenderComponent.h"
-#include "HealthComponent.h"
-#include "PositionComponent.h"
+#include <typeinfo>
+#include <map>
+#include <typeindex>
+#include <memory>
+
 
 class Entity
 {
+	int id;
 public:
-	Entity() {}
-	void addComponent(Component * newComp) {
-		m_components.push_back(newComp);
-	}
+	Entity(int id) { this->id = id; };
+	void AddComponent(Component* c) { components.push_back(c); }
+	void RemoveComponent(Component* c) {/*TBI*/ }
+	std::vector<Component*>  GetComponents() { return components; }
 
-	void removeComponent(Component * removeComp) {
-
-	}
-
-	std::vector<Component*> getComponents() {
-		return m_components;
-	}
-
-	Component * getCompByType(COMPONENTTYPE type) {
-		for (Component * comp : m_components) {
-			if (comp->getType() == type) {
-				return comp;
-			}
+	template <class T>
+	T * getComponent(Component::Type type)
+	{
+		for (int i = 0; i < components.size(); i++)
+		{
+			if (components[i]->GetType() == type)
+				return static_cast<T*>(components[i]);
 		}
+		return nullptr;
 	}
+
+	//~Entity();
+
 private:
-	std::vector<Component*> m_components;
+	std::vector<Component*> components;
 };

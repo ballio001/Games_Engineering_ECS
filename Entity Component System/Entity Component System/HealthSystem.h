@@ -1,16 +1,13 @@
 #pragma once
-#include <vector>
-#include <iostream>
-#include <iostream>
-#include <vector>
+#include "System.h"
 #include "Entity.h"
+#include <vector>
 
-class HealthSystem
+class HealthSystem : public System
 {
-	std::vector<Entity *> m_entities;
-
 public:
 	HealthSystem();
-	void addEntity(Entity * e);
-	void update();
+	~HealthSystem();
+	void Update();
+private:
 };

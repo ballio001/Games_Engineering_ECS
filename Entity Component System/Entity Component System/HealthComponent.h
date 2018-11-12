@@ -1,17 +1,15 @@
 #pragma once
 #include "Component.h"
-
-class HealthComponent : public Component
+class HealthComponent :
+	public Component
 {
 public:
-	HealthComponent(int health) : health(health) {}
-
-	int getHealth() { return health; }
-	void setHealth(int health) { this->health = health; }
-
-	COMPONENTTYPE getType() { return type; }
-
+	HealthComponent() : health(100) {}
+	int Gethealth() { return health; }
+	void SetHealth(int h) { health = h; }
+	int GetIndex() { return 0; }
+	Type GetType() { return Type::Health; }
+	~HealthComponent();
 private:
 	int health;
-	COMPONENTTYPE type = COMPONENTTYPE::HEALTH;
 };
