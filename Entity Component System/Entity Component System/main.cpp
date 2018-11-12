@@ -21,49 +21,40 @@ int main(int argc, char* args[])
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
 	Entity player(0);
-	HealthComponent* playerHealth = new HealthComponent();
-	PositionComponent* playerPosition = new PositionComponent(50, 50);
-	ControllerComponent* playerController = new ControllerComponent();
-	player.AddComponent(playerHealth);
-	player.AddComponent(playerPosition);
-	player.AddComponent(playerController);
-
+	player.AddComponent(new HealthComponent());
+	player.AddComponent(new PositionComponent(50, 50));
+	player.AddComponent(new ControllerComponent());
+	
 	Entity alien(1);
-	HealthComponent* alienHealth = new HealthComponent();;
-	PositionComponent* alienPosition = new PositionComponent(400, 400);
-	alien.AddComponent(alienHealth);
-	alien.AddComponent(alienPosition);
+	alien.AddComponent(new HealthComponent());
+	alien.AddComponent(new PositionComponent(400, 400));
 
 	Entity dog(2);
-	HealthComponent* dogHealth = new HealthComponent();;
-	PositionComponent* dogPosition = new PositionComponent(50, 400);
-	dog.AddComponent(dogHealth);
-	dog.AddComponent(dogPosition);
+	dog.AddComponent(new HealthComponent());
+	dog.AddComponent(new PositionComponent(50, 400));
 
 	Entity cat(3);
-	HealthComponent* catHealth = new HealthComponent();;
-	PositionComponent* catPosition = new PositionComponent(400, 50);
-	cat.AddComponent(catHealth);
-	cat.AddComponent(catPosition);
+	cat.AddComponent(new HealthComponent());
+	cat.AddComponent(new PositionComponent(400, 50));
 
 	HealthSystem healthSystem;
+	AISystem aiSystem;
+	RenderSystem renderSystem(renderer);
+	ControllerSystem controllerSystem;
 	healthSystem.AddEntity(player);
 	healthSystem.AddEntity(alien);
 	healthSystem.AddEntity(dog);
 	healthSystem.AddEntity(cat);
 
-	AISystem aiSystem;
 	aiSystem.AddEntity(alien);
 	aiSystem.AddEntity(dog);
 	aiSystem.AddEntity(cat);
 
-	RenderSystem renderSystem(renderer);
 	renderSystem.AddEntity(player);
 	renderSystem.AddEntity(alien);
 	renderSystem.AddEntity(dog);
 	renderSystem.AddEntity(cat);
 
-	ControllerSystem controllerSystem;
 	controllerSystem.AddEntity(player);
 
 	bool quit = false;
