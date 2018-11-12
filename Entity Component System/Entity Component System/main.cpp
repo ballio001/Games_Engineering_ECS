@@ -1,4 +1,4 @@
-// ECS.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// main.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
@@ -52,6 +52,11 @@ int main(int argc, char* args[])
 	healthSystem.AddEntity(dog);
 	healthSystem.AddEntity(cat);
 
+	AISystem aiSystem;
+	aiSystem.AddEntity(alien);
+	aiSystem.AddEntity(dog);
+	aiSystem.AddEntity(cat);
+
 	RenderSystem renderSystem(renderer);
 	renderSystem.AddEntity(player);
 	renderSystem.AddEntity(alien);
@@ -61,17 +66,11 @@ int main(int argc, char* args[])
 	ControllerSystem controllerSystem;
 	controllerSystem.AddEntity(player);
 
-	AISystem aiSystem;
-	aiSystem.AddEntity(alien);
-	aiSystem.AddEntity(dog);
-	aiSystem.AddEntity(cat);
-
 	bool quit = false;
 	SDL_Event e;
 
 	while (!quit) {
 		while (SDL_PollEvent(&e) != 0) {
-			//User requests quit 
 			if (e.type == SDL_QUIT)
 			{
 				quit = true;
